@@ -17,7 +17,7 @@ namespace Five.Models
 
         public Gender Gender { get; set; }
 
-        public bool Fired { get; set; }
+        public bool IsFired { get; set; }
     }
 
     public enum Gender

@@ -49,7 +49,7 @@ namespace Five.Services
 
                 if (employee != null)
                 {
-                    employee.Fired = true;
+                    employee.IsFired = true;
                     return employee;
                 }
                 return null;
