@@ -5,16 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Five.Controllers
 {
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
+        private readonly IOptions<FiveOptions> _fiveOptions;
 
-        public DepartmentController(IDepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService, IOptions<FiveOptions> fiveOptions)
         {
             _departmentService = departmentService;
+            _fiveOptions = fiveOptions;
         }
 
         public async Task<IActionResult> Index()

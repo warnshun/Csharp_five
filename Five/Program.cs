@@ -18,6 +18,11 @@ namespace Five
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, configBuilder) =>
+                {
+                    configBuilder.Sources.Clear();
+                    configBuilder.AddJsonFile("emptyJson.json");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

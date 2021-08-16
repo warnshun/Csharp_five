@@ -8,11 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Five
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -21,6 +29,8 @@ namespace Five
             services.AddSingleton<IClock, UtcClock>();
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
+
+            services.Configure<FiveOptions>(_configuration.GetSection("Five"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
