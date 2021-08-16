@@ -19,6 +19,8 @@ namespace Five
 
             // services.AddSingleton<IClock, ChinaClock>();
             services.AddSingleton<IClock, UtcClock>();
+            services.AddSingleton<IDepartmentService, DepartmentService>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,7 +42,7 @@ namespace Five
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{controller=Department}/{action=Index}/{id?}"
                     );
             });
         }
