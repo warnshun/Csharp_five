@@ -15,7 +15,11 @@
     </div>
 </div>
 <div clas="row">
-    <div class="col-md-4 offset-2">
+    <div class="col-md-2">
+        @await  Component.InvokeAsync("CompanySummary", new { title = "部門列表頁的匯總" })
+        <vc:company-summary title="部門列表頁的匯總2"></vc:company-summary>
+    </div>
+    <div class="col-md-4">
         <a asp-action="Add">Add</a>
     </div>
 </div>
