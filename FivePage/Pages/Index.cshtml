@@ -1,5 +1,7 @@
 ﻿@page
 
+@using Services
+
 @inject IDepartmentService _departmentService
 
 <div class="row">
@@ -16,18 +18,19 @@
     </div>
 </div>
 <div clas="row">
-    @*<div class="col-md-2">
+    <div class="col-md-4 offset-md-2">
+        <a asp-page="Department/AddDepartment">Add</a>
+    </div>
+    <div class="col-md-4">
         @await Component.InvokeAsync("CompanySummary", new { title = "部門列表頁的匯總" })
         <vc:company-summary title="部門列表頁的匯總2"></vc:company-summary>
-    </div>*@
-    <div class="col-md-4">
-        <a asp-action="Add">Add</a>
     </div>
+
 </div>
 
 @functions
 {
-    public IEnumerable<Department> Departments { get; set; }
+    public IEnumerable<Models.Department> Departments { get; set; }
 
     public async Task OnGetAsync()
     {
