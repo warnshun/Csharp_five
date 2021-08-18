@@ -9,7 +9,7 @@ using SignalRDemo.Services;
 
 namespace SignalRDemo
 {
-    [Authorize]
+    // [Authorize]
     public class CountHub : Hub
     {
         private readonly CountService _countService;
@@ -21,7 +21,7 @@ namespace SignalRDemo
 
         public async Task GetLatestCount(string random)
         {
-            var user = Context.User.Identity.Name;
+            // var user = Context.User.Identity.Name;
 
             int count;
             do
@@ -38,18 +38,19 @@ namespace SignalRDemo
 
         public override async Task OnConnectedAsync()
         {
-            var connectionId = Context.ConnectionId;
+            //// 建立連結後運行
+            //var connectionId = Context.ConnectionId;
 
-            var client = Clients.Client(connectionId);
+            //var client = Clients.Client(connectionId);
 
-            await client.SendAsync("someFunc", new { });
-            // 除此 connectionId 其他執行 someFunc
-            await Clients.AllExcept(connectionId).SendAsync("someFunc");
+            //await client.SendAsync("someFunc", new { });
+            //// 除此 connectionId 其他執行 someFunc
+            //await Clients.AllExcept(connectionId).SendAsync("someFunc");
 
-            await Groups.AddToGroupAsync(connectionId, "MyGroup");
-            await Groups.RemoveFromGroupAsync(connectionId, "MyGroup");
+            //await Groups.AddToGroupAsync(connectionId, "MyGroup");
+            //await Groups.RemoveFromGroupAsync(connectionId, "MyGroup");
 
-            await Clients.Groups("MyGroup").SendAsync("someFunc");
+            //await Clients.Groups("MyGroup").SendAsync("someFunc");
         }
     }
 }
