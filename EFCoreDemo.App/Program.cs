@@ -13,58 +13,20 @@ namespace EFCoreDemo.App
         {
             using var context = new EFCoreDemoContext();
 
-            var italy = "Italy";
+            // Delete
+            // 只能刪除被追蹤的資料
+            var milan = context.Clubs.Single(c => c.Name == "AC Milan");
 
+            // 調用刪除方法
+            context.Clubs.Remove(milan);
+            //context.Clubs.RemoveRange(milan, milan);
 
+            //context.Remove(milan);
+            //context.RemoveRange(milan, milan);
 
-            var leagues = context.Leagues
-                //.Where(l => l.Country == italy)
-                // Country LIKE %e%
-                // .Where(l => l.Country.Contains("e"))
-                .Where(l => EF.Functions.Like(l.Country, "%e%"))
-                .ToList();
+            var count = context.SaveChanges();
 
-            //var leagues2 = (
-            //        from l in context.Leagues 
-            //        where l.Country == "Italy"
-            //        select l)
-            //    .ToList();
-
-            // ToList(), Find();  // ToListAsync();
-            // First(), .FirstOrDefault(), Last(), LastOrDefault()
-            // Single(), SingleOrDefault()
-            // Count(), LongCount(), Min(), Max(), Average(), Sum()
-
-            // 開啟資料庫連接
-            //foreach (var league in context.Leagues)
-            //{
-            //    Console.WriteLine(league.Name);
-            //}
-
-            // 印出查詢的資料
-            foreach (var league in leagues)
-            {
-                Console.WriteLine(league.Name);
-            }
-
-
-            var first = context.Leagues
-                .SingleOrDefault(l => l.Id == 2);
-
-            // Find() 先查詢記憶體
-            var one = context.Leagues.Find(2);
-
-            Console.WriteLine(first ?.Name);
-            Console.WriteLine(one ?.Name);
-
-            // Last() 需排序
-            var last = context.Leagues
-                .OrderBy(l => l.Id) // 正序
-                //.OrderByDescending(l => l.Id) // 倒序
-                .LastOrDefault(l => l.Name.Contains("e"));
-
-
-            Console.WriteLine(last ?.Name);
+            Console.WriteLine(count);
         }
     }
 }
