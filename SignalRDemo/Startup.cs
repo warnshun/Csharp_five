@@ -35,6 +35,7 @@ namespace SignalRDemo
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<CountHub>("/counthub");
             });
         }
     }
