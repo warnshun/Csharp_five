@@ -8,9 +8,11 @@ namespace FiveApi.Repositories
 {
     public interface IEmployeeRepository
     {
-        Task Add(Employee employee);
+        Task<Employee> Add(Employee employee);
 
         Task<IEnumerable<Employee>> GetByDepartmentId(int departmentId);
+
+        Task<Employee> GetById(int id);
 
         Task<Employee> Fire(int id);
     }

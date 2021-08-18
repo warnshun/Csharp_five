@@ -16,7 +16,9 @@ namespace FiveApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddControllers()
+                .AddXmlSerializerFormatters();
 
             services.AddSingleton<IClock, UtcClock>();
             services.AddSingleton<IDepartmentRepository, DepartmentRepository>();

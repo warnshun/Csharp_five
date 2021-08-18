@@ -6,7 +6,7 @@ using FiveApi.Models;
 
 namespace FiveApi.Repositories
 {
-    interface ISummaryRepository
+    public interface ISummaryRepository
     {
         Task<CompanySummary> GetCompanySummary();
     }

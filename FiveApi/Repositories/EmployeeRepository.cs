@@ -34,11 +34,11 @@ namespace FiveApi.Repositories
                 Gender = Gender.Female
             });
         }
-        public Task Add(Employee employee)
+        public Task<Employee> Add(Employee employee)
         {
             employee.Id = _employees.Max(x => x.Id) + 1;
             _employees.Add(employee);
-            return Task.CompletedTask;
+            return Task.Run(() => employee);
         }
 
         public Task<Employee> Fire(int id)
@@ -59,6 +59,11 @@ namespace FiveApi.Repositories
         public Task<IEnumerable<Employee>> GetByDepartmentId(int departmentId)
         {
             return Task.Run(() => _employees.Where(x => x.DepartmentId == departmentId));
+        }
+
+        public Task<Employee> GetById(int id)
+        {
+            return Task.Run(() => _employees.FirstOrDefault(x => x.Id == id));
         }
     }
 }
