@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EFCoreDemo.Data;
 using EFCoreDemo.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreDemo.App
 {
@@ -12,44 +13,58 @@ namespace EFCoreDemo.App
         {
             using var context = new EFCoreDemoContext();
 
-            //var serieA = new League
+            var italy = "Italy";
+
+
+
+            var leagues = context.Leagues
+                //.Where(l => l.Country == italy)
+                // Country LIKE %e%
+                // .Where(l => l.Country.Contains("e"))
+                .Where(l => EF.Functions.Like(l.Country, "%e%"))
+                .ToList();
+
+            //var leagues2 = (
+            //        from l in context.Leagues 
+            //        where l.Country == "Italy"
+            //        select l)
+            //    .ToList();
+
+            // ToList(), Find();  // ToListAsync();
+            // First(), .FirstOrDefault(), Last(), LastOrDefault()
+            // Single(), SingleOrDefault()
+            // Count(), LongCount(), Min(), Max(), Average(), Sum()
+
+            // 開啟資料庫連接
+            //foreach (var league in context.Leagues)
             //{
-            //    Country = "Italy",
-            //    Name = "Serie A"
-            //};
+            //    Console.WriteLine(league.Name);
+            //}
 
-            //context.Leagues.Add(serieA);
-
-            var serieA = context.Leagues.Single(l => l.Name == "Serie A");
-
-            var serieB = new League
+            // 印出查詢的資料
+            foreach (var league in leagues)
             {
-                Country = "Italy",
-                Name = "Serie B"
-            };
-            var serieC = new League
-            {
-                Country = "Italy",
-                Name = "Serie C"
-            };
+                Console.WriteLine(league.Name);
+            }
 
-            // 同種資料
-            //context.Leagues.AddRange(serieB, serieC);
-            //context.Leagues.AddRange(new List<League> {serieB, serieC});
 
-            var milan = new Club
-            {
-                Name = "AC Milan",
-                City = "Milan",
-                DateOfEstablishment = new DateTime(1899, 12, 16),
-                League = serieA
-            };
-            // 多種資料
-            context.AddRange(serieB, serieC, milan);
+            var first = context.Leagues
+                .SingleOrDefault(l => l.Id == 2);
 
-            var count = context.SaveChanges();
+            // Find() 先查詢記憶體
+            var one = context.Leagues.Find(2);
 
-            Console.WriteLine(count);
+            Console.WriteLine(first ?.Name);
+            Console.WriteLine(one ?.Name);
+
+            // Last() 需排序
+            var last = context.Leagues
+                .OrderBy(l => l.Id) // 正序
+                //.OrderByDescending(l => l.Id) // 倒序
+                .LastOrDefault(l => l.Name.Contains("e"));
+
+
+            Console.WriteLine(last ?.Name);
         }
     }
 }
