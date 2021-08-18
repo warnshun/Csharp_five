@@ -13,20 +13,34 @@ namespace EFCoreDemo.App
         {
             using var context = new EFCoreDemoContext();
 
-            // Delete
-            // 只能刪除被追蹤的資料
-            var milan = context.Clubs.Single(c => c.Name == "AC Milan");
+            // Update
+            // 需要被追蹤才能被修改
+            //var league = context.Leagues.First();
+            // 多筆修改
+            var leagues = context.Leagues.Skip(1).Take(3).ToList();
 
-            // 調用刪除方法
-            context.Clubs.Remove(milan);
-            //context.Clubs.RemoveRange(milan, milan);
-
-            //context.Remove(milan);
-            //context.RemoveRange(milan, milan);
+            // Modify
+            //league.Name += "!!";
+            foreach (var l in leagues)
+            {
+                l.Name += "!!";
+            }
 
             var count = context.SaveChanges();
 
             Console.WriteLine(count);
+
+            // 模仿前端 Json 資料
+            var leagueJson = context.Leagues.AsNoTracking().First();
+            leagueJson.Name += "++";
+
+            // 加入追蹤 並 Modify
+            context.Leagues.Update(leagueJson);
+            // UpdateRange
+
+            var countJson = context.SaveChanges();
+
+            Console.WriteLine(countJson);
         }
     }
 }

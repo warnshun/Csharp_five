@@ -6,6 +6,12 @@ namespace EFCoreDemo.Data
 {
     public class EFCoreDemoContext : DbContext
     {
+        //public EFCoreDemoContext()
+        //{
+        //    // 全局不追蹤
+        //    ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        //}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
