@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCoreDemo.Domain
 {
@@ -16,9 +17,12 @@ namespace EFCoreDemo.Domain
 
         public string City { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime DateOfEstablishment { get; set; }
 
         public string History { get; set; }
+
+
 
         public League League { get; set; }
 

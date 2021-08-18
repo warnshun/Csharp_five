@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EFCoreDemo.Domain
 {
-    public class Player
+    public class Game
     {
-        public Player()
+        public Game()
         {
             GamePlayers = new List<GamePlayer>();
         }
 
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public DateTime DateOfBirth { get; set; }
-
+        public int Round { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
         // 聯合外鍵 (m:n)
         public List<GamePlayer> GamePlayers { get; set; }
-
-
-        // (1:1)
-        public int ResumeId { get; set; }
-
-        public Resume Resume { get; set; }
     }
+
 }
