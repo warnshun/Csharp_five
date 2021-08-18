@@ -37,6 +37,8 @@ namespace EFCoreDemo.Data
         public DbSet<League> Leagues { get; set; }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
+        public DbSet<Game> Games { get; set; }
 
         // 顯示 SQL 語句
         public static readonly ILoggerFactory ConsoleLoggerFactory =

@@ -13,34 +13,31 @@ namespace EFCoreDemo.App
         {
             using var context = new EFCoreDemoContext();
 
-            // Update
-            // 需要被追蹤才能被修改
-            //var league = context.Leagues.First();
-            // 多筆修改
-            var leagues = context.Leagues.Skip(1).Take(3).ToList();
+            // League - Club - Player
 
-            // Modify
-            //league.Name += "!!";
-            foreach (var l in leagues)
+            var serieA = context.Leagues.Single(l => l.Name == "Serie A");
+
+            var juventus = new Club
             {
-                l.Name += "!!";
-            }
+                League = serieA,
+                Name = "Juventus",
+                City = "Torino",
+                DateOfEstablishment = new DateTime(1897, 11, 1),
+                Players = new List<Player>
+                {
+                    new Player
+                    {
+                        Name = "C. Ronaldo",
+                        DateOfBirth = new DateTime(1985, 2, 5)
+                    }
+                }
+            };
 
-            var count = context.SaveChanges();
+            context.Clubs.Add(juventus);
+
+            int count = context.SaveChanges();
 
             Console.WriteLine(count);
-
-            // 模仿前端 Json 資料
-            var leagueJson = context.Leagues.AsNoTracking().First();
-            leagueJson.Name += "++";
-
-            // 加入追蹤 並 Modify
-            context.Leagues.Update(leagueJson);
-            // UpdateRange
-
-            var countJson = context.SaveChanges();
-
-            Console.WriteLine(countJson);
         }
     }
 }
