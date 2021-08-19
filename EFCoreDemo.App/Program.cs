@@ -13,31 +13,26 @@ namespace EFCoreDemo.App
         {
             using var context = new EFCoreDemoContext();
 
-            // League - Club - Player
+            // 需設有 DBSet
+            var leagues = context.Leagues
+                .FromSqlRaw("SELECT * FROM dbo.Leagues")
+                .ToList();
 
-            var serieA = context.Leagues.Single(l => l.Name == "Serie A");
+            var leagues2 = context.Leagues
+                .FromSqlInterpolated($"SELECT * FROM dbo.Clubs WHERE Id > {0}")
+                .ToList();
 
-            var juventus = new Club
+            foreach (var league in leagues)
             {
-                League = serieA,
-                Name = "Juventus",
-                City = "Torino",
-                DateOfEstablishment = new DateTime(1897, 11, 1),
-                Players = new List<Player>
-                {
-                    new Player
-                    {
-                        Name = "C. Ronaldo",
-                        DateOfBirth = new DateTime(1985, 2, 5)
-                    }
-                }
-            };
+                Console.WriteLine(league.Name);
+            }
 
-            context.Clubs.Add(juventus);
+            // 無法執行查詢，返回影響行數
+            var count = context.Database
+                .ExecuteSqlRaw("EXEC dbo.RemoveGamePlayersProcedure {0}", 2);
 
-            int count = context.SaveChanges();
-
-            Console.WriteLine(count);
+            count = context.Database
+                .ExecuteSqlInterpolated($"EXEC dbo.RemoveGamePlayersProcedure {2}");
         }
     }
 }
