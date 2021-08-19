@@ -6,20 +6,22 @@ namespace EFCoreDemo.Data
 {
     public class EFCoreDemoContext : DbContext
     {
-        //public EFCoreDemoContext()
-        //{
-        //    // 全局不追蹤
-        //    ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        //}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public EFCoreDemoContext(DbContextOptions<EFCoreDemoContext> options) : base(options)
         {
-            optionsBuilder
-                .UseLoggerFactory(ConsoleLoggerFactory) // 顯示 SQL 語句
-                .EnableSensitiveDataLogging() // 在顯示的 SQL 語句中，顯示帶入參數
-                .UseSqlServer(
-                "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=EFCoreDemo");
+
+
+            // 全局不追蹤
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder
+        //        .UseLoggerFactory(ConsoleLoggerFactory) // 顯示 SQL 語句
+        //        .EnableSensitiveDataLogging() // 在顯示的 SQL 語句中，顯示帶入參數
+        //        .UseSqlServer(
+        //        "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=EFCoreDemo");
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

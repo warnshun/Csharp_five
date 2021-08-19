@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePage", "FivePage\FivePa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo", "SignalRDemo\SignalRDemo.csproj", "{C8A54342-A99B-4370-B6DE-FCF34683A7B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiveApi", "FiveApi\FiveApi.csproj", "{513B6C1F-8E33-4035-8FD0-64D40B91D0B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiveApi", "FiveApi\FiveApi.csproj", "{513B6C1F-8E33-4035-8FD0-64D40B91D0B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.Domain", "EFCoreDemo.Domain\EFCoreDemo.Domain.csproj", "{CA9C3EA8-B73D-4E06-BD50-DFEFFA5D2084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreDemo.Domain", "EFCoreDemo.Domain\EFCoreDemo.Domain.csproj", "{CA9C3EA8-B73D-4E06-BD50-DFEFFA5D2084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.Data", "EFCoreDemo.Data\EFCoreDemo.Data.csproj", "{D8C0F49F-1D7D-47D7-BE14-0F2C192C5104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreDemo.Data", "EFCoreDemo.Data\EFCoreDemo.Data.csproj", "{D8C0F49F-1D7D-47D7-BE14-0F2C192C5104}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.App", "EFCoreDemo.App\EFCoreDemo.App.csproj", "{28074DCD-1B8B-4CAD-BB0F-5B4782634AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreDemo.App", "EFCoreDemo.App\EFCoreDemo.App.csproj", "{28074DCD-1B8B-4CAD-BB0F-5B4782634AEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.Web", "EFCoreDemo.Web\EFCoreDemo.Web.csproj", "{CF161C9E-AC96-4850-87EC-34BC3A3EA5A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{28074DCD-1B8B-4CAD-BB0F-5B4782634AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28074DCD-1B8B-4CAD-BB0F-5B4782634AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28074DCD-1B8B-4CAD-BB0F-5B4782634AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF161C9E-AC96-4850-87EC-34BC3A3EA5A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF161C9E-AC96-4850-87EC-34BC3A3EA5A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF161C9E-AC96-4850-87EC-34BC3A3EA5A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF161C9E-AC96-4850-87EC-34BC3A3EA5A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
