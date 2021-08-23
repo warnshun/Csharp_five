@@ -26,7 +26,7 @@ namespace Routine.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCompanies()
+        public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies()
         {
             var companies = await _companyRepository.GetCompaniesAsync();
 
@@ -36,7 +36,7 @@ namespace Routine.Api.Controllers
         }
 
         [HttpGet("{companyId}")]
-        public async Task<IActionResult> GetCompany(Guid companyId)
+        public async Task<ActionResult<CompanyDto>> GetCompany(Guid companyId)
         {
             var company = await _companyRepository.GetCompanyAsync(companyId);
 
