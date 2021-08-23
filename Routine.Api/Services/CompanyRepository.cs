@@ -89,15 +89,26 @@ namespace Routine.Api.Services
             return await _context.Companies.AnyAsync(c => c.Id == companyId);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId)
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, string genderDisplay)
         {
             if (companyId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
+            if (string.IsNullOrWhiteSpace(genderDisplay))
+            {
+                return await _context.Employees
+                    .Where(e => e.CompanyId == companyId)
+                    .OrderBy(e => e.EmployeeNo)
+                    .ToListAsync();
+            }
+
+            var genderStr = genderDisplay.Trim();
+            var gender = Enum.Parse<Gender>(genderStr);
+
             return await _context.Employees
-                .Where(e => e.CompanyId == companyId)
+                .Where(e => e.CompanyId == companyId && e.Gender == gender)
                 .OrderBy(e => e.EmployeeNo)
                 .ToListAsync();
         }
