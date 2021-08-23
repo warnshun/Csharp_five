@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Routine.Api.Data;
 using Routine.Api.Services;
@@ -29,13 +30,18 @@ namespace Routine.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(setup =>
+            {
+                setup.ReturnHttpNotAcceptable = true;
+                //setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                //setup.OutputFormatters.Insert(0, new XmlDataContractSerializerOutputFormatter());
+            }).AddXmlDataContractSerializerFormatters();
 
             services.AddScoped<ICompanyRepository, CompanyRepository>();
 
-            services.AddDbContextPool<RoutineDbContext>(optins =>
+            services.AddDbContextPool<RoutineDbContext>(options =>
             {
-                optins.UseSqlite("Data Source=routine.db");
+                options.UseSqlite("Data Source=routine.db");
             });
 
             services.AddSwaggerGen(c =>
