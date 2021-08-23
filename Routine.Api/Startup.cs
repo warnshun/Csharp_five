@@ -37,6 +37,8 @@ namespace Routine.Api
                 //setup.OutputFormatters.Insert(0, new XmlDataContractSerializerOutputFormatter());
             }).AddXmlDataContractSerializerFormatters();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<ICompanyRepository, CompanyRepository>();
 
             services.AddDbContextPool<RoutineDbContext>(options =>
