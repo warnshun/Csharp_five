@@ -89,14 +89,14 @@ namespace Routine.Api.Services
             return await _context.Companies.AnyAsync(c => c.Id == companyId);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, string genderDisplay)
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, string genderDisplay, string searchTerm)
         {
             if (companyId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            if (string.IsNullOrWhiteSpace(genderDisplay))
+            if (string.IsNullOrWhiteSpace(genderDisplay) && string.IsNullOrWhiteSpace(searchTerm))
             {
                 return await _context.Employees
                     .Where(e => e.CompanyId == companyId)
@@ -104,12 +104,29 @@ namespace Routine.Api.Services
                     .ToListAsync();
             }
 
-            var genderStr = genderDisplay.Trim();
-            var gender = Enum.Parse<Gender>(genderStr);
+            var items = _context.Employees.Where(e => e.CompanyId == companyId);
 
-            return await _context.Employees
-                .Where(e => e.CompanyId == companyId && e.Gender == gender)
-                .OrderBy(e => e.EmployeeNo)
+            if (!string.IsNullOrWhiteSpace(genderDisplay))
+            {
+                // filter
+                genderDisplay = genderDisplay.Trim();
+                var gender = Enum.Parse<Gender>(genderDisplay);
+
+                items = items.Where(e => e.Gender == gender);
+
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                // search
+                searchTerm = searchTerm.Trim();
+
+                items = items.Where(e => e.EmployeeNo.Contains(searchTerm)
+                                         || e.FirstName.Contains(searchTerm)
+                                         || e.LastName.Contains(searchTerm));
+            }
+
+            return await items.OrderBy(e => e.EmployeeNo)
                 .ToListAsync();
         }
 
