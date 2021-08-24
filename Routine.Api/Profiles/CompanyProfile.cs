@@ -17,6 +17,8 @@ namespace Routine.Api.Profiles
                     dest => dest.CompanyName,
                     options => 
                         options.MapFrom(source => source.Name));
+
+            CreateMap<CompanyAddDto, Company>();
         }
     }
 }
