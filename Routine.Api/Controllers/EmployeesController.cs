@@ -80,5 +80,37 @@ namespace Routine.Api.Controllers
                 new {companyId, employeeId = returnDto.Id},
                 returnDto);
         }
+
+        [HttpPut("{employeeId}")]
+        public async Task<IActionResult> UpdateEmployeeForCompany(
+            Guid companyId,
+            Guid employeeId,
+            EmployeeUpdateDto employee)
+        {
+            if (!await _companyRepository.CompanyExistsAsync(companyId))
+            {
+                return NotFound();
+            }
+
+            var employeeEntity = await _companyRepository.GetEmployeeAsync(companyId, employeeId);
+
+            if (employeeEntity == null)
+            {
+                return NotFound();
+            }
+
+            // Entity 映射為 UpdateDto
+            // 把傳進來的 employee(UpdateDto) 的值賦予 UpdateDto
+            // 把 UpdateDto 映射回 Entity
+
+            _mapper.Map(employee, employeeEntity);
+
+            
+            _companyRepository.UpdateEmployee(employeeEntity);
+
+            await _companyRepository.SaveAsync();
+
+            return NoContent();
+        }
     }
 }
