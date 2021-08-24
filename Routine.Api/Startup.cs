@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Routine.Api.Data;
@@ -35,7 +36,28 @@ namespace Routine.Api
                 setup.ReturnHttpNotAcceptable = true;
                 //setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 //setup.OutputFormatters.Insert(0, new XmlDataContractSerializerOutputFormatter());
-            }).AddXmlDataContractSerializerFormatters();
+            }).AddXmlDataContractSerializerFormatters()
+                .ConfigureApiBehaviorOptions(setup =>
+                {
+                    setup.InvalidModelStateResponseFactory = context =>
+                    {
+                        var problemDetails = new ValidationProblemDetails(context.ModelState)
+                        {
+                            Type = "https://www.google.com",
+                            Title = "有錯誤！！！",
+                            Status = StatusCodes.Status422UnprocessableEntity,
+                            Detail = "請看詳細訊息",
+                            Instance = context.HttpContext.Request.Path
+                        };
+
+                        problemDetails.Extensions.Add("traceId", context.HttpContext.TraceIdentifier);
+
+                        return new UnprocessableEntityObjectResult(problemDetails)
+                        {
+                            ContentTypes = {"application/problem+json"}
+                        };
+                    };
+                });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
