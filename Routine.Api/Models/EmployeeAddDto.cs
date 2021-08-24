@@ -1,10 +1,13 @@
 ﻿using Routine.Api.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Routine.Api.ValidationAttributes;
 
 namespace Routine.Api.Models
 {
-    public class EmployeeAddDto
+    [EmployeeNoMustDifferentFromFirstName]
+    public class EmployeeAddDto : IValidatableObject
     {
         [Display(Name = "員工編號"), 
         Required(ErrorMessage = "{0} 是必填的"),
@@ -26,5 +29,14 @@ namespace Routine.Api.Models
 
         [Display(Name = "出生日期")]
         public DateTime DateOfBirth { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (FirstName == LastName)
+            {
+                yield return new ValidationResult("姓氏與名字不可相同", 
+                    new []{nameof(FirstName), nameof(LastName) });
+            }
+        }
     }
 }

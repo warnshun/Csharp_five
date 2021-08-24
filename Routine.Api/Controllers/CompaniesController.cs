@@ -56,6 +56,11 @@ namespace Routine.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<CompanyAddDto>> CreateCompany([FromBody]CompanyAddDto company)
         {
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             var entity = _mapper.Map<Company>(company);
 
             _companyRepository.AddCompany(entity);
