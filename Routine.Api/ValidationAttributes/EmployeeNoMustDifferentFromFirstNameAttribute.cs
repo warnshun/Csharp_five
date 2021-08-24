@@ -5,13 +5,13 @@ namespace Routine.Api.ValidationAttributes
 {
     public class EmployeeNoMustDifferentFromFirstNameAttribute : ValidationAttribute
     {
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var addDto = (EmployeeAddDto) validationContext.ObjectInstance;
 
             if (addDto.EmployeeNo == addDto.FirstName)
             {
-                return new ValidationResult("員工編號與名字不可相同",
+                return new ValidationResult(ErrorMessage,
                     new[] { nameof(EmployeeAddDto)});
             }
 
