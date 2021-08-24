@@ -64,8 +64,15 @@ namespace Routine.Api.Controllers
             var ids = string.Join(",", returndDtos.Select(x => x.Id));
 
             return CreatedAtRoute(nameof(GetCompanyCollection), 
-                new {ids = ids }, 
+                new {ids }, 
                 returndDtos);
+        }
+
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "Get,POST,Options");
+            return Ok();
         }
     }
 }

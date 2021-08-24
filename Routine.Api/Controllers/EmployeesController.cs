@@ -77,7 +77,7 @@ namespace Routine.Api.Controllers
             var returnDto = _mapper.Map<EmployeeDto>(entity);
 
             return CreatedAtRoute(nameof(GetEmployeeForCompany), 
-                new {companyId = companyId, employeeId = returnDto.Id},
+                new {companyId, employeeId = returnDto.Id},
                 returnDto);
         }
     }
