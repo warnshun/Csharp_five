@@ -27,7 +27,7 @@ namespace Routine.Api.Controllers
                       throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet]
+        [HttpGet, HttpHead]
         public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies(
             [FromQuery]CompanyDtoParameters parameters)
         {
@@ -69,6 +69,26 @@ namespace Routine.Api.Controllers
             var returnDto = _mapper.Map<CompanyDto>(entity);
 
             return CreatedAtRoute(nameof(GetCompany), new {companyId = returnDto.Id}, returnDto);
+        }
+
+        [HttpDelete("{companyId}")]
+        public async Task<IActionResult> DeleteCompany(Guid companyId)
+        {
+            var companyEntity = await _companyRepository.GetCompanyAsync(companyId);
+
+            if (companyEntity == null)
+            {
+                return NotFound();
+            }
+
+            // 載入company底下員工資源，以便已起刪除
+            await _companyRepository.GetEmployeesAsync(companyId, null, null);
+
+            _companyRepository.DeleteCompany(companyEntity);
+
+            await _companyRepository.SaveAsync();
+
+            return NoContent();
         }
     }
 }
