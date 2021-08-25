@@ -19,6 +19,12 @@ namespace Routine.Api.Data
             modelBuilder.Entity<Company>()
                 .Property(c => c.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Company>()
+                .Property(c => c.Country).HasMaxLength(50);
+            modelBuilder.Entity<Company>()
+                .Property(c => c.Industry).HasMaxLength(50);
+            modelBuilder.Entity<Company>()
+                .Property(c => c.Product).HasMaxLength(100);
+            modelBuilder.Entity<Company>()
                 .Property(c => c.Introduction).HasMaxLength(500);
 
             modelBuilder.Entity<Employee>()
@@ -40,182 +46,226 @@ namespace Routine.Api.Data
                 {
                     Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df5923716c"),
                     Name = "Microsoft",
-                    Introduction = "Microsoft Company"
+                    Introduction = "Great Company",
+                    Country = "USA",
+                    Industry = "Software",
+                    Product = "Software"
                 },
                 new Company
                 {
                     Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
                     Name = "Google",
-                    Introduction = "Google Company"
+                    Introduction = "Don't be evil",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Software"
                 },
                 new Company
                 {
                     Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
-                    Name = "Apple",
-                    Introduction = "Apple Company"
+                    Name = "Alipapa",
+                    Introduction = "Fubao Company",
+                    Country = "China",
+                    Industry = "Internet",
+                    Product = "Software"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("0f40e053-252b-4de7-ae6d-164e7fa87b85"),
-                    Name = "Microsoft2",
-                    Introduction = "Microsoft Company"
+                    Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237100"),
+                    Name = "Tencent",
+                    Introduction = "From Shenzhen",
+                    Country = "China",
+                    Industry = "ECommerce",
+                    Product = "Software"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("8f2bcc74-0226-4de3-8581-d179cf039407"),
-                    Name = "Google2",
-                    Introduction = "Google Company"
+                    Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716400"),
+                    Name = "Baidu",
+                    Introduction = "From Beijing",
+                    Country = "China",
+                    Industry = "Internet",
+                    Product = "Software"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("1f45d6c1-e5a0-435a-851c-418c818fa1e2"),
-                    Name = "Apple2",
-                    Introduction = "Apple Company"
+                    Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542800"),
+                    Name = "Adobe",
+                    Introduction = "Photoshop?",
+                    Country = "USA",
+                    Industry = "Software",
+                    Product = "Software"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("92267a79-e640-4ecd-9ad2-26e58e68558d"),
-                    Name = "Microsoft3",
-                    Introduction = "Microsoft Company"
+                    Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237111"),
+                    Name = "SpaceX",
+                    Introduction = "Wow",
+                    Country = "USA",
+                    Industry = "Technology",
+                    Product = "Rocket"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("ab8f0e97-361f-4996-b449-2bfa8cd0c9df"),
-                    Name = "Google3",
-                    Introduction = "Google Company"
+                    Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716411"),
+                    Name = "AC Milan",
+                    Introduction = "Football Club",
+                    Country = "Italy",
+                    Industry = "Football",
+                    Product = "Football Match"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("1d7317fa-e637-46c4-a132-557a2b0829fe"),
-                    Name = "Apple3",
-                    Introduction = "Apple Company"
-                }, new Company
-                {
-                    Id = Guid.Parse("5d654ea0-5434-4878-9346-c29d67882165"),
-                    Name = "Microsoft4",
-                    Introduction = "Microsoft Company"
+                    Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542811"),
+                    Name = "Suning",
+                    Introduction = "From Jiangsu",
+                    Country = "China",
+                    Industry = "ECommerce",
+                    Product = "Goods"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("04b37a9a-037f-4169-9a0f-ad25cb06dfe9"),
-                    Name = "Google4",
-                    Introduction = "Google Company"
+                    Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237122"),
+                    Name = "Twitter",
+                    Introduction = "Blocked",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Tweets"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("6bd6bc9b-a502-4397-b161-e1963b28f6a1"),
-                    Name = "Apple4",
-                    Introduction = "Apple Company"
-                }, new Company
-                {
-                    Id = Guid.Parse("ee61d1ce-2882-4212-ab47-a99f34681c82"),
-                    Name = "Microsoft5",
-                    Introduction = "Microsoft Company"
+                    Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716422"),
+                    Name = "Youtube",
+                    Introduction = "Blocked",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Videos"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("50e92e5e-02b7-42bb-b9f4-5d89b42a05d1"),
-                    Name = "Google5",
-                    Introduction = "Google Company"
+                    Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542822"),
+                    Name = "360",
+                    Introduction = "- -",
+                    Country = "China",
+                    Industry = "Security",
+                    Product = "Security Product"
                 },
                 new Company
                 {
-                    Id = Guid.Parse("0a9975cf-befd-46d1-ab1b-e985b980d123"),
-                    Name = "Apple5",
-                    Introduction = "Apple Company"
+                    Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237133"),
+                    Name = "Jingdong",
+                    Introduction = "Brothers",
+                    Country = "China",
+                    Industry = "ECommerce",
+                    Product = "Goods"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716433"),
+                    Name = "NetEase",
+                    Introduction = "Music?",
+                    Country = "China",
+                    Industry = "Internet",
+                    Product = "Songs"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542833"),
+                    Name = "Amazon",
+                    Introduction = "Store",
+                    Country = "USA",
+                    Industry = "ECommerce",
+                    Product = "Books"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237144"),
+                    Name = "AOL",
+                    Introduction = "Not Exists?",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Website"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716444"),
+                    Name = "Yahoo",
+                    Introduction = "Who?",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Mail"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542844"),
+                    Name = "Firefox",
+                    Introduction = "Is it a company?",
+                    Country = "USA",
+                    Industry = "Internet",
+                    Product = "Browser"
                 }
                 );
 
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {
-                    Id = Guid.Parse("5b9e8ecd-71a5-46b5-8ec4-2a7a002d9ada"),
+                    Id = Guid.Parse("4b501cb3-d168-4cc0-b375-48fb33f318a4"),
                     CompanyId = Guid.Parse("bbdee09c-089b-4d30-bece-44df5923716c"),
                     DateOfBirth = new DateTime(1976, 1, 2),
-                    EmployeeNo = "MS231",
+                    EmployeeNo = "MSFT231",
                     FirstName = "Nick",
                     LastName = "Carter",
                     Gender = Gender.Male
                 },
                 new Employee
                 {
-                    Id = Guid.Parse("2e1c7b17-b912-43ed-896c-652735a00b6d"),
+                    Id = Guid.Parse("7eaa532c-1be5-472c-a738-94fd26e5fad6"),
                     CompanyId = Guid.Parse("bbdee09c-089b-4d30-bece-44df5923716c"),
                     DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "MS245",
+                    EmployeeNo = "MSFT245",
                     FirstName = "Vince",
                     LastName = "Carter",
                     Gender = Gender.Male
                 },
                 new Employee
                 {
-                    Id = Guid.Parse("EB6401AE-9113-4D6C-9D2D-E9CC6208F1C6"),
-                    CompanyId = Guid.Parse("bbdee09c-089b-4d30-bece-44df5923716c"),
-                    DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "MS279",
-                    FirstName = "Maria",
-                    LastName = "Los",
+                    Id = Guid.Parse("72457e73-ea34-4e02-b575-8d384e82a481"),
+                    CompanyId = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
+                    DateOfBirth = new DateTime(1986, 11, 4),
+                    EmployeeNo = "G003",
+                    FirstName = "Mary",
+                    LastName = "King",
                     Gender = Gender.Female
                 },
                 new Employee
                 {
-                    Id = Guid.Parse("7E2EBE97-11DA-4B62-B644-F2885B7F038C"),
+                    Id = Guid.Parse("7644b71d-d74e-43e2-ac32-8cbadd7b1c3a"),
                     CompanyId = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
-                    DateOfBirth = new DateTime(1976, 1, 2),
-                    EmployeeNo = "GG231",
-                    FirstName = "Nick",
-                    LastName = "Carter",
+                    DateOfBirth = new DateTime(1977, 4, 6),
+                    EmployeeNo = "G097",
+                    FirstName = "Kevin",
+                    LastName = "Richardson",
                     Gender = Gender.Male
                 },
                 new Employee
                 {
-                    Id = Guid.Parse("7061FD5A-B7EE-45A0-8A97-566F6DFC5C2E"),
-                    CompanyId = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
-                    DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "GG245",
-                    FirstName = "Vince",
-                    LastName = "Carter",
-                    Gender = Gender.Male
-                },
-                new Employee
-                {
-                    Id = Guid.Parse("94981AE0-0954-446C-87A8-58ABBDBE8D6F"),
-                    CompanyId = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
-                    DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "GG279",
-                    FirstName = "Maria",
-                    LastName = "Los",
+                    Id = Guid.Parse("679dfd33-32e4-4393-b061-f7abb8956f53"),
+                    CompanyId = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
+                    DateOfBirth = new DateTime(1967, 1, 24),
+                    EmployeeNo = "A009",
+                    FirstName = "卡",
+                    LastName = "里",
                     Gender = Gender.Female
                 },
                 new Employee
                 {
-                    Id = Guid.Parse("BBBF271A-E6F9-4584-A882-236E51114F6F"),
+                    Id = Guid.Parse("1861341e-b42b-410c-ae21-cf11f36fc574"),
                     CompanyId = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
-                    DateOfBirth = new DateTime(1976, 1, 2),
-                    EmployeeNo = "AP231",
-                    FirstName = "Nick",
-                    LastName = "Carter",
+                    DateOfBirth = new DateTime(1957, 3, 8),
+                    EmployeeNo = "A404",
+                    FirstName = "Not",
+                    LastName = "Man",
                     Gender = Gender.Male
-                },
-                new Employee
-                {
-                    Id = Guid.Parse("86D7915C-2575-438A-AC40-47DDAAFA3708"),
-                    CompanyId = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
-                    DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "AP245",
-                    FirstName = "Vince",
-                    LastName = "Carter",
-                    Gender = Gender.Male
-                },
-                new Employee
-                {
-                    Id = Guid.Parse("4666E3EA-D14F-4996-A036-B3737BBDA486"),
-                    CompanyId = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
-                    DateOfBirth = new DateTime(1981, 12, 5),
-                    EmployeeNo = "AP279",
-                    FirstName = "Maria",
-                    LastName = "Los",
-                    Gender = Gender.Female
                 }
                 );
         }

@@ -74,6 +74,8 @@ namespace Routine.Api
                 options.UseSqlite("Data Source=routine.db");
             });
 
+            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Routine.Api", Version = "v1" });

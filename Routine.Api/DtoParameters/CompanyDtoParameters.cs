@@ -13,6 +13,7 @@ namespace Routine.Api.DtoParameters
         public string SearchTerm { get; set; }
         public int PageNumber { get; set; } = 1;
 
+        public string OrderBy { get; set; } = "CompanyName";
 
         private int _pageSize = 5;
 
