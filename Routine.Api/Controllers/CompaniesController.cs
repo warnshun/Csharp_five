@@ -90,5 +90,13 @@ namespace Routine.Api.Controllers
 
             return NoContent();
         }
+
+
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "Get, HEAD, POST, DELETE, OPTIONS");
+            return Ok();
+        }
     }
 }

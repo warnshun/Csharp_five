@@ -71,7 +71,7 @@ namespace Routine.Api.Controllers
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {
-            Response.Headers.Add("Allow", "Get,POST,Options");
+            Response.Headers.Add("Allow", "Get, POST, OPTIONS");
             return Ok();
         }
     }

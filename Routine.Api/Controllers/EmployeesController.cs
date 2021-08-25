@@ -209,6 +209,14 @@ namespace Routine.Api.Controllers
             return NoContent();
         }
 
+
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "Get, POST, PATCH, DELETE, OPTIONS");
+            return Ok();
+        }
+
         public override ActionResult ValidationProblem(ModelStateDictionary modelStateDictionary)
         {
             var options = HttpContext.RequestServices
