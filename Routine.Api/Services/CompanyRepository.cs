@@ -123,14 +123,6 @@ namespace Routine.Api.Services
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            if (string.IsNullOrWhiteSpace(parameters.Gender) && string.IsNullOrWhiteSpace(parameters.SearchTerm))
-            {
-                return await _context.Employees
-                    .Where(e => e.CompanyId == companyId)
-                    .OrderBy(e => e.EmployeeNo)
-                    .ToListAsync();
-            }
-
             var items = _context.Employees.Where(e => e.CompanyId == companyId);
 
             if (!string.IsNullOrWhiteSpace(parameters.Gender))
@@ -153,8 +145,15 @@ namespace Routine.Api.Services
                                          || e.LastName.Contains(parameters.SearchTerm));
             }
 
-            return await items.OrderBy(e => e.EmployeeNo)
-                .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
+            {
+                if (parameters.OrderBy.ToLowerInvariant() == "name")
+                {
+                    items = items.OrderBy(x => x.FirstName).ThenBy(x => x.LastName);
+                }
+            }
+
+            return await items.ToListAsync();
         }
 
         public async Task<Employee> GetEmployeeAsync(Guid companyId, Guid employeeId)
