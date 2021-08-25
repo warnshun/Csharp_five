@@ -53,6 +53,76 @@ namespace Routine.Api.Data
                     Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
                     Name = "Apple",
                     Introduction = "Apple Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("0f40e053-252b-4de7-ae6d-164e7fa87b85"),
+                    Name = "Microsoft2",
+                    Introduction = "Microsoft Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("8f2bcc74-0226-4de3-8581-d179cf039407"),
+                    Name = "Google2",
+                    Introduction = "Google Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("1f45d6c1-e5a0-435a-851c-418c818fa1e2"),
+                    Name = "Apple2",
+                    Introduction = "Apple Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("92267a79-e640-4ecd-9ad2-26e58e68558d"),
+                    Name = "Microsoft3",
+                    Introduction = "Microsoft Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("ab8f0e97-361f-4996-b449-2bfa8cd0c9df"),
+                    Name = "Google3",
+                    Introduction = "Google Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("1d7317fa-e637-46c4-a132-557a2b0829fe"),
+                    Name = "Apple3",
+                    Introduction = "Apple Company"
+                }, new Company
+                {
+                    Id = Guid.Parse("5d654ea0-5434-4878-9346-c29d67882165"),
+                    Name = "Microsoft4",
+                    Introduction = "Microsoft Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("04b37a9a-037f-4169-9a0f-ad25cb06dfe9"),
+                    Name = "Google4",
+                    Introduction = "Google Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("6bd6bc9b-a502-4397-b161-e1963b28f6a1"),
+                    Name = "Apple4",
+                    Introduction = "Apple Company"
+                }, new Company
+                {
+                    Id = Guid.Parse("ee61d1ce-2882-4212-ab47-a99f34681c82"),
+                    Name = "Microsoft5",
+                    Introduction = "Microsoft Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("50e92e5e-02b7-42bb-b9f4-5d89b42a05d1"),
+                    Name = "Google5",
+                    Introduction = "Google Company"
+                },
+                new Company
+                {
+                    Id = Guid.Parse("0a9975cf-befd-46d1-ab1b-e985b980d123"),
+                    Name = "Apple5",
+                    Introduction = "Apple Company"
                 }
                 );
 

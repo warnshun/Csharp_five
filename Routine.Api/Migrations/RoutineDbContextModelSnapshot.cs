@@ -53,6 +53,78 @@ namespace Routine.Api.Migrations
                             Id = new Guid("5efc910b-2f45-43df-afae-620d40542853"),
                             Introduction = "Apple Company",
                             Name = "Apple"
+                        },
+                        new
+                        {
+                            Id = new Guid("0f40e053-252b-4de7-ae6d-164e7fa87b85"),
+                            Introduction = "Microsoft Company",
+                            Name = "Microsoft2"
+                        },
+                        new
+                        {
+                            Id = new Guid("8f2bcc74-0226-4de3-8581-d179cf039407"),
+                            Introduction = "Google Company",
+                            Name = "Google2"
+                        },
+                        new
+                        {
+                            Id = new Guid("1f45d6c1-e5a0-435a-851c-418c818fa1e2"),
+                            Introduction = "Apple Company",
+                            Name = "Apple2"
+                        },
+                        new
+                        {
+                            Id = new Guid("92267a79-e640-4ecd-9ad2-26e58e68558d"),
+                            Introduction = "Microsoft Company",
+                            Name = "Microsoft3"
+                        },
+                        new
+                        {
+                            Id = new Guid("ab8f0e97-361f-4996-b449-2bfa8cd0c9df"),
+                            Introduction = "Google Company",
+                            Name = "Google3"
+                        },
+                        new
+                        {
+                            Id = new Guid("1d7317fa-e637-46c4-a132-557a2b0829fe"),
+                            Introduction = "Apple Company",
+                            Name = "Apple3"
+                        },
+                        new
+                        {
+                            Id = new Guid("5d654ea0-5434-4878-9346-c29d67882165"),
+                            Introduction = "Microsoft Company",
+                            Name = "Microsoft4"
+                        },
+                        new
+                        {
+                            Id = new Guid("04b37a9a-037f-4169-9a0f-ad25cb06dfe9"),
+                            Introduction = "Google Company",
+                            Name = "Google4"
+                        },
+                        new
+                        {
+                            Id = new Guid("6bd6bc9b-a502-4397-b161-e1963b28f6a1"),
+                            Introduction = "Apple Company",
+                            Name = "Apple4"
+                        },
+                        new
+                        {
+                            Id = new Guid("ee61d1ce-2882-4212-ab47-a99f34681c82"),
+                            Introduction = "Microsoft Company",
+                            Name = "Microsoft5"
+                        },
+                        new
+                        {
+                            Id = new Guid("50e92e5e-02b7-42bb-b9f4-5d89b42a05d1"),
+                            Introduction = "Google Company",
+                            Name = "Google5"
+                        },
+                        new
+                        {
+                            Id = new Guid("0a9975cf-befd-46d1-ab1b-e985b980d123"),
+                            Introduction = "Apple Company",
+                            Name = "Apple5"
                         });
                 });
 
@@ -190,7 +262,7 @@ namespace Routine.Api.Migrations
                     b.HasOne("Routine.Api.Entities.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
