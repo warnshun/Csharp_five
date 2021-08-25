@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using Routine.Api.Data;
 using Routine.Api.Services;
 
@@ -36,7 +37,12 @@ namespace Routine.Api
                 setup.ReturnHttpNotAcceptable = true;
                 //setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 //setup.OutputFormatters.Insert(0, new XmlDataContractSerializerOutputFormatter());
-            }).AddXmlDataContractSerializerFormatters()
+            }).AddNewtonsoftJson(setup =>
+                {
+                    setup.SerializerSettings.ContractResolver =
+                        new CamelCasePropertyNamesContractResolver();
+                })
+                .AddXmlDataContractSerializerFormatters()
                 .ConfigureApiBehaviorOptions(setup =>
                 {
                     setup.InvalidModelStateResponseFactory = context =>

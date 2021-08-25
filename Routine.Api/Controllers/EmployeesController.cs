@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Routine.Api.Entities;
 using Routine.Api.Models;
@@ -117,6 +118,44 @@ namespace Routine.Api.Controllers
             _mapper.Map(employee, employeeEntity);
 
             
+            _companyRepository.UpdateEmployee(employeeEntity);
+
+            await _companyRepository.SaveAsync();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{employeeId}")]
+        public async Task<IActionResult> PartiallyUpdateEmployeeForCompany(
+            Guid companyId,
+            Guid employeeId,
+            JsonPatchDocument<EmployeeUpdateDto> patchDocument)
+        {
+            if (!await _companyRepository.CompanyExistsAsync(companyId))
+            {
+                return NotFound();
+            }
+
+            var employeeEntity = await _companyRepository.GetEmployeeAsync(companyId, employeeId);
+
+            if (employeeEntity == null)
+            {
+                return NotFound();
+            }
+
+            var patchDto = _mapper.Map<EmployeeUpdateDto>(employeeEntity);
+
+            // 需要驗證處理錯誤 (ModelState)
+            patchDocument.ApplyTo(patchDto, ModelState);
+
+            // 驗證
+            if (!TryValidateModel(patchDto))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(patchDto, employeeEntity);
+
             _companyRepository.UpdateEmployee(employeeEntity);
 
             await _companyRepository.SaveAsync();
