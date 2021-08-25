@@ -143,7 +143,28 @@ namespace Routine.Api.Controllers
 
             if (employeeEntity == null)
             {
-                return NotFound();
+                var employeeDto = new EmployeeUpdateDto();
+                patchDocument.ApplyTo(employeeDto, ModelState);
+                
+                if (!TryValidateModel(employeeDto))
+                {
+                    return ValidationProblem(ModelState);
+                }
+
+                var employeeToAddEntity = _mapper.Map<Employee>(employeeDto);
+                employeeToAddEntity.Id = employeeId;
+
+                _companyRepository.AddEmployee(companyId, employeeToAddEntity);
+
+                await _companyRepository.SaveAsync();
+
+                var returnDto = _mapper.Map<EmployeeDto>(employeeToAddEntity);
+
+                return CreatedAtRoute(nameof(GetEmployeeForCompany), new
+                {
+                    companyId,
+                    employeeId = returnDto.Id
+                }, returnDto);
             }
 
             var patchDto = _mapper.Map<EmployeeUpdateDto>(employeeEntity);
