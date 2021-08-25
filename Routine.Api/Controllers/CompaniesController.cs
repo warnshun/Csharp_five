@@ -109,7 +109,7 @@ namespace Routine.Api.Controllers
             }
 
             // 載入company底下員工資源，以便已起刪除
-            await _companyRepository.GetEmployeesAsync(companyId, null, null);
+            await _companyRepository.GetEmployeesAsync(companyId, new EmployeeDtoParameters());
 
             _companyRepository.DeleteCompany(companyEntity);
 

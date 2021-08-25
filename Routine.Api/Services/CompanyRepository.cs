@@ -116,14 +116,14 @@ namespace Routine.Api.Services
             return await _context.Companies.AnyAsync(c => c.Id == companyId);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, string genderDisplay, string searchTerm)
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, EmployeeDtoParameters parameters)
         {
             if (companyId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            if (string.IsNullOrWhiteSpace(genderDisplay) && string.IsNullOrWhiteSpace(searchTerm))
+            if (string.IsNullOrWhiteSpace(parameters.Gender) && string.IsNullOrWhiteSpace(parameters.SearchTerm))
             {
                 return await _context.Employees
                     .Where(e => e.CompanyId == companyId)
@@ -133,24 +133,24 @@ namespace Routine.Api.Services
 
             var items = _context.Employees.Where(e => e.CompanyId == companyId);
 
-            if (!string.IsNullOrWhiteSpace(genderDisplay))
+            if (!string.IsNullOrWhiteSpace(parameters.Gender))
             {
                 // filter
-                genderDisplay = genderDisplay.Trim();
-                var gender = Enum.Parse<Gender>(genderDisplay);
+                parameters.Gender = parameters.Gender.Trim();
+                var gender = Enum.Parse<Gender>(parameters.Gender);
 
                 items = items.Where(e => e.Gender == gender);
 
             }
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
             {
                 // search
-                searchTerm = searchTerm.Trim();
+                parameters.SearchTerm = parameters.SearchTerm.Trim();
 
-                items = items.Where(e => e.EmployeeNo.Contains(searchTerm)
-                                         || e.FirstName.Contains(searchTerm)
-                                         || e.LastName.Contains(searchTerm));
+                items = items.Where(e => e.EmployeeNo.Contains(parameters.SearchTerm)
+                                         || e.FirstName.Contains(parameters.SearchTerm)
+                                         || e.LastName.Contains(parameters.SearchTerm));
             }
 
             return await items.OrderBy(e => e.EmployeeNo)
