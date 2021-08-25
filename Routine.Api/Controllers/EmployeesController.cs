@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Routine.Api.Entities;
 using Routine.Api.Models;
 using Routine.Api.Services;
@@ -161,6 +164,14 @@ namespace Routine.Api.Controllers
             await _companyRepository.SaveAsync();
 
             return NoContent();
+        }
+
+        public override ActionResult ValidationProblem(ModelStateDictionary modelStateDictionary)
+        {
+            var options = HttpContext.RequestServices
+                .GetRequiredService<IOptions<ApiBehaviorOptions>>();
+
+            return (ActionResult) options.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
     }
 }
