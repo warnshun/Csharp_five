@@ -34,8 +34,7 @@ namespace Routine.Api.Controllers
         }
 
         [HttpGet(Name = nameof(GetCompanies)), HttpHead]
-        public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies(
-            [FromQuery]CompanyDtoParameters parameters)
+        public async Task<IActionResult> GetCompanies([FromQuery]CompanyDtoParameters parameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<CompanyDto, Company>(parameters.OrderBy))
             {
@@ -70,7 +69,7 @@ namespace Routine.Api.Controllers
 
             var companyDtos = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
-            return Ok(companyDtos);
+            return Ok(companyDtos.ShapeData(parameters.Fields));
         }
 
         [HttpGet("{companyId}", Name = nameof(GetCompany))]
@@ -142,6 +141,7 @@ namespace Routine.Api.Controllers
                 case ResourceUriType.PreviousPage:
                     return Url.Link(nameof(GetCompanies), new
                     {
+                        fields = parameters.Fields,
                         orderBy = parameters.OrderBy,
                         pageNumber = parameters.PageNumber - 1,
                         pageSize = parameters.PageSize,
@@ -152,6 +152,7 @@ namespace Routine.Api.Controllers
                 case ResourceUriType.NextPage:
                     return Url.Link(nameof(GetCompanies), new
                     {
+                        fields = parameters.Fields,
                         orderBy = parameters.OrderBy,
                         pageNumber = parameters.PageNumber + 1,
                         pageSize = parameters.PageSize,
@@ -162,6 +163,7 @@ namespace Routine.Api.Controllers
                 default:
                     return Url.Link(nameof(GetCompanies), new
                     {
+                        fields = parameters.Fields,
                         orderBy = parameters.OrderBy,
                         pageNumber = parameters.PageNumber,
                         pageSize = parameters.PageSize,

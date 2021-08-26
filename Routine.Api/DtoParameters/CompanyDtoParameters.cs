@@ -14,6 +14,7 @@ namespace Routine.Api.DtoParameters
         public int PageNumber { get; set; } = 1;
 
         public string OrderBy { get; set; } = "CompanyName";
+        public string Fields { get; set; }
 
         private int _pageSize = 5;
 
