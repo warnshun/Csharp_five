@@ -75,6 +75,7 @@ namespace Routine.Api
             });
 
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
 
             services.AddSwaggerGen(c =>
             {

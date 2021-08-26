@@ -22,21 +22,34 @@ namespace Routine.Api.Controllers
         private readonly ICompanyRepository _companyRepository;
         private readonly IMapper _mapper;
         private readonly IPropertyMappingService _propertyMappingService;
+        private readonly IPropertyCheckerService _propertyCheckerService;
 
-        public CompaniesController(ICompanyRepository companyRepository, IMapper mapper, IPropertyMappingService propertyMappingService)
+        public CompaniesController(
+            ICompanyRepository companyRepository, 
+            IMapper mapper, 
+            IPropertyMappingService propertyMappingService,
+            IPropertyCheckerService propertyCheckerService)
         {
             _companyRepository = companyRepository ?? 
                                  throw new ArgumentNullException(nameof(companyRepository));
             _mapper = mapper ??
                       throw new ArgumentNullException(nameof(mapper));
             _propertyMappingService = propertyMappingService ??
-                                      throw new ArgumentNullException(nameof(propertyMappingService)); ;
+                                      throw new ArgumentNullException(nameof(propertyMappingService));
+            _propertyCheckerService = propertyCheckerService ??
+                                      throw new ArgumentNullException(nameof(propertyCheckerService));
+            ;
         }
 
         [HttpGet(Name = nameof(GetCompanies)), HttpHead]
         public async Task<IActionResult> GetCompanies([FromQuery]CompanyDtoParameters parameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<CompanyDto, Company>(parameters.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!_propertyCheckerService.TypeHasProperties<CompanyDto>(parameters.Fields))
             {
                 return BadRequest();
             }
@@ -73,8 +86,13 @@ namespace Routine.Api.Controllers
         }
 
         [HttpGet("{companyId}", Name = nameof(GetCompany))]
-        public async Task<ActionResult<CompanyDto>> GetCompany(Guid companyId)
+        public async Task<ActionResult<CompanyDto>> GetCompany(Guid companyId, string fields)
         {
+            if (!_propertyCheckerService.TypeHasProperties<CompanyDto>(fields))
+            {
+                return BadRequest();
+            }
+
             var company = await _companyRepository.GetCompanyAsync(companyId);
 
             if (company == null)
@@ -82,9 +100,7 @@ namespace Routine.Api.Controllers
                 return NotFound();
             }
 
-            var companyDto = _mapper.Map<CompanyDto>(company);
-
-            return Ok(companyDto);
+            return Ok(_mapper.Map<CompanyDto>(company).ShapeData(fields));
         }
 
         [HttpPost]
